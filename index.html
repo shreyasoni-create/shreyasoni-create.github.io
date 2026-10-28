@@ -2,1055 +2,847 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#f5f2e9">
-  <title>Shreya Soni | Shopify Developer</title>
-  <meta name="description" content="Shopify developer specializing in Figma-to-Shopify development, responsive storefronts, custom Liquid sections, and ecommerce UI.">
-
-  <script>
-    document.documentElement.classList.add("js");
-  </script>
-
-  <style>
-    :root {
-      --cream: #f5f2e9;
-      --green: #234d3a;
-      --dark: #182d25;
-      --lime: #d6f078;
-      --muted: #69766c;
-      --line: rgba(24, 45, 37, .15);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 80px;
-    }
-
-    body {
-      background: var(--cream);
-      color: var(--dark);
-      font-family: Arial, Helvetica, sans-serif;
-      overflow-x: hidden;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    img {
-      max-width: 100%;
-    }
-
-    .progress {
-      position: fixed;
-      z-index: 1000;
-      top: 0;
-      left: 0;
-      height: 3px;
-      width: 0;
-      background: var(--lime);
-    }
-
-    /* Navigation */
-
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 7%;
-      background: rgba(245, 242, 233, .88);
-      backdrop-filter: blur(15px);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .brand {
-      font-weight: 900;
-      letter-spacing: -1px;
-      font-size: 17px;
-    }
-
-    .brand span {
-      color: #718e43;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      font-size: 13px;
-    }
-
-    .nav-links a {
-      transition: color .25s;
-    }
-
-    .nav-links a:hover {
-      color: #718e43;
-    }
-
-    /* Hero banner */
-
-    .hero {
-      min-height: 740px;
-      min-height: min(790px, calc(100vh - 60px));
-      position: relative;
-      isolation: isolate;
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      align-items: center;
-      gap: 5%;
-      padding: 85px 7% 100px;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      z-index: -1;
-      width: 650px;
-      height: 650px;
-      top: -230px;
-      right: -180px;
-      border-radius: 50%;
-      background: radial-gradient(
-        circle,
-        #d8e6b7,
-        rgba(216, 230, 183, .3) 45%,
-        transparent 70%
-      );
-      animation: glow 9s ease-in-out infinite alternate;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      z-index: -1;
-      width: 400px;
-      height: 400px;
-      bottom: -240px;
-      left: -170px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #e7d8b7, transparent 70%);
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 15px;
-      border: 1px solid var(--line);
-      border-radius: 50px;
-      font-size: 11px;
-      letter-spacing: 1.3px;
-      text-transform: uppercase;
-      font-weight: 700;
-      animation: fadeUp .8s .05s both;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #86a644;
-      box-shadow: 0 0 0 4px #86a64425;
-    }
-
-    .hero h1 {
-      margin: 28px 0 24px;
-      font-size: clamp(50px, 7vw, 96px);
-      line-height: .96;
-      letter-spacing: -.075em;
-      animation: fadeUp .9s .15s both;
-    }
-
-    .hero h1 em {
-      color: #668449;
-      font-family: Georgia, serif;
-      font-weight: 400;
-      letter-spacing: -.08em;
-    }
-
-    .hero-copy {
-      max-width: 490px;
-      color: #53645a;
-      font-size: 17px;
-      line-height: 1.8;
-      animation: fadeUp .9s .3s both;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 13px;
-      margin-top: 32px;
-      animation: fadeUp .9s .4s both;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      padding: 15px 21px;
-      border-radius: 50px;
-      font-size: 13px;
-      font-weight: 700;
-      transition: transform .3s, background .3s, box-shadow .3s;
-    }
-
-    .btn:hover {
-      transform: translateY(-4px);
-    }
-
-    .btn-dark {
-      color: white;
-      background: var(--green);
-      box-shadow: 0 8px 22px #234d3a20;
-    }
-
-    .btn-dark:hover {
-      background: #142f23;
-      box-shadow: 0 12px 26px #234d3a30;
-    }
-
-    .btn-light {
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, .35);
-    }
-
-    /* Hero image animation */
-
-    .hero-visual {
-      position: relative;
-      min-width: 0;
-      perspective: 1200px;
-      animation: visualEnter 1.2s .2s both;
-    }
-
-    .orbit {
-      position: absolute;
-      inset: 5% -4% -4% 4%;
-      border: 1px solid #8ba36b70;
-      border-radius: 48% 52% 44% 56%;
-      transform: rotate(-9deg);
-      animation: orbit 15s ease-in-out infinite alternate;
-    }
-
-    .preview-frame {
-      position: relative;
-      z-index: 2;
-      padding: 10px;
-      background: white;
-      border-radius: 17px;
-      box-shadow: 0 32px 90px #1a34252b;
-      transform: rotate(2.5deg);
-      animation: float 6s ease-in-out infinite;
-      transition: box-shadow .4s;
-    }
-
-    .preview-frame:hover {
-      box-shadow: 0 40px 100px #1a342538;
-    }
-
-    .preview-frame img {
-      display: block;
-      width: 100%;
-      height: 400px;
-      object-fit: cover;
-      object-position: top;
-      border-radius: 10px;
-    }
-
-    .preview-placeholder {
-      height: 400px;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 25px;
-      border-radius: 10px;
-      background: linear-gradient(145deg, #f4d6e2, #e3edca 58%, #d9e8df);
-      color: var(--green);
-    }
-
-    .preview-placeholder strong {
-      font-family: Georgia, serif;
-      font-size: 48px;
-      line-height: 1;
-    }
-
-    .floating-note {
-      position: absolute;
-      z-index: 3;
-      left: -30px;
-      bottom: 12%;
-      padding: 15px 18px;
-      border-radius: 12px;
-      background: white;
-      box-shadow: 0 14px 38px #1a34251c;
-      animation: noteFloat 5s ease-in-out infinite;
-    }
-
-    .floating-note small {
-      display: block;
-      margin-bottom: 5px;
-      color: var(--muted);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .floating-note strong {
-      font-size: 13px;
-    }
-
-    .sticker {
-      position: absolute;
-      z-index: 3;
-      top: -24px;
-      right: -18px;
-      width: 80px;
-      height: 80px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: var(--lime);
-      font-size: 10px;
-      font-weight: 900;
-      text-align: center;
-      text-transform: uppercase;
-      line-height: 1.3;
-      transform: rotate(12deg);
-      animation: spinSlow 22s linear infinite;
-    }
-
-    .hero-foot {
-      position: absolute;
-      bottom: 24px;
-      left: 7%;
-      right: 7%;
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      color: #718075;
-      font-size: 10px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .scroll-cue span {
-      display: inline-block;
-      width: 24px;
-      height: 1px;
-      margin-left: 9px;
-      vertical-align: middle;
-      background: #718075;
-      animation: cue 1.5s ease-in-out infinite;
-    }
-
-    /* Sections */
-
-    .section {
-      padding: 100px 7%;
-    }
-
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 30px;
-      margin-bottom: 40px;
-    }
-
-    .kicker {
-      color: #6c854a;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .section h2 {
-      max-width: 700px;
-      margin-top: 14px;
-      font-size: clamp(37px, 5vw, 65px);
-      line-height: 1;
-      letter-spacing: -.065em;
-    }
-
-    .section-intro {
-      max-width: 370px;
-      margin-top: 16px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.8;
-    }
-
-    /* Project cards */
-
-    .projects {
-      background: #eaece2;
-      border-top: 1px solid #e1e5d9;
-      border-bottom: 1px solid #e1e5d9;
-    }
-
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 22px;
-    }
-
-    .project {
-      overflow: hidden;
-      border: 1px solid #dfe3d7;
-      border-radius: 17px;
-      background: #f8f7f1;
-      transition: transform .4s, box-shadow .4s;
-    }
-
-    .project:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 22px 45px #243d2912;
-    }
-
-    .project-image {
-      height: 290px;
-      overflow: hidden;
-      background: #e6e8df;
-    }
-
-    .project-image img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top;
-      transition: transform .8s cubic-bezier(.2, .7, .2, 1);
-    }
-
-    .project:hover .project-image img {
-      transform: scale(1.045);
-    }
-
-    .no-image {
-      display: grid;
-      place-items: center;
-      height: 100%;
-      padding: 25px;
-      text-align: center;
-      color: #244a38;
-      font-family: Georgia, serif;
-      font-size: 38px;
-      letter-spacing: -1px;
-      background: linear-gradient(140deg, #e3ead7, #d5e2dd, #f0dfd3);
-    }
-
-    .project-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      padding: 22px;
-    }
-
-    .project-meta h3 {
-      margin-bottom: 8px;
-      font-size: 22px;
-      letter-spacing: -1px;
-    }
-
-    .project-meta p {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    .project-link {
-      flex-shrink: 0;
-      display: grid;
-      place-items: center;
-      width: 38px;
-      height: 38px;
-      border: 1px solid var(--line);
-      border-radius: 50%;
-      transition: background .25s, color .25s, transform .25s;
-    }
-
-    .project-link:hover {
-      color: white;
-      background: var(--green);
-      transform: rotate(45deg);
-    }
-
-    /* Skills */
-
-    .skills-layout {
-      display: grid;
-      grid-template-columns: .8fr 1.2fr;
-      gap: 7%;
-    }
-
-    .skill-list {
-      display: flex;
-      flex-wrap: wrap;
-      align-content: start;
-      gap: 10px;
-    }
-
-    .skill {
-      padding: 13px 16px;
-      border: 1px solid var(--line);
-      border-radius: 50px;
-      font-size: 13px;
-      transition: background .25s, transform .25s;
-    }
-
-    .skill:hover {
-      background: #e0e8cf;
-      transform: translateY(-3px);
-    }
-
-    /* Process */
-
-    .process {
-      color: var(--cream);
-      background: var(--green);
-    }
-
-    .process .kicker {
-      color: var(--lime);
-    }
-
-    .process .section-intro {
-      color: #c2cec5;
-    }
-
-    .process-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-      margin-top: 42px;
-    }
-
-    .process-card {
-      padding: 25px 0;
-      border-top: 1px solid #ffffff40;
-    }
-
-    .process-card .num {
-      color: var(--lime);
-      font-size: 12px;
-      letter-spacing: 1px;
-    }
-
-    .process-card h3 {
-      margin: 28px 0 12px;
-      font-size: 22px;
-      letter-spacing: -.5px;
-    }
-
-    .process-card p {
-      color: #c2cec5;
-      font-size: 14px;
-      line-height: 1.8;
-    }
-
-    /* Contact and footer */
-
-    .contact {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 30px;
-    }
-
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 24px 7%;
-      border-top: 1px solid var(--line);
-      color: #718075;
-      font-size: 12px;
-    }
-
-    /* Scroll reveal */
-
-    .reveal {
-      opacity: 1;
-      transform: translateY(0);
-      transition: opacity .75s ease, transform .75s cubic-bezier(.2, .8, .2, 1);
-    }
-
-    html.js .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    html.js .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .delay-1 {
-      transition-delay: .12s;
-    }
-
-    .delay-2 {
-      transition-delay: .24s;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes visualEnter {
-      from { opacity: 0; transform: translateY(35px) rotateY(-8deg) scale(.96); }
-      to { opacity: 1; transform: translateY(0) rotateY(0) scale(1); }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: rotate(2.5deg) translateY(0); }
-      50% { transform: rotate(1deg) translateY(-10px); }
-    }
-
-    @keyframes noteFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
-    @keyframes orbit {
-      from { transform: rotate(-9deg) scale(1); }
-      to { transform: rotate(4deg) scale(1.04); }
-    }
-
-    @keyframes glow {
-      from { transform: translate(0, 0) scale(1); }
-      to { transform: translate(-40px, 25px) scale(1.12); }
-    }
-
-    @keyframes spinSlow {
-      to { rotate: 372deg; }
-    }
-
-    @keyframes cue {
-      0%, 100% { transform: translateX(0); opacity: .5; }
-      50% { transform: translateX(7px); opacity: 1; }
-    }
-
-    /* Responsive */
-
-    @media (max-width: 850px) {
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 55px;
-        padding-top: 65px;
-        padding-bottom: 100px;
-      }
-
-      .hero-copy {
-        max-width: 600px;
-      }
-
-      .hero-visual {
-        width: min(100%, 620px);
-        margin: auto;
-      }
-
-      .section-head {
-        display: block;
-      }
-
-      .skills-layout {
-        grid-template-columns: 1fr;
-        gap: 28px;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .nav {
-        padding: 17px 20px;
-      }
-
-      .nav-links {
-        gap: 14px;
-        font-size: 11px;
-      }
-
-      .nav-links a:nth-child(2) {
-        display: none;
-      }
-
-      .hero {
-        padding: 55px 20px 100px;
-        gap: 45px;
-      }
-
-      .hero h1 {
-        font-size: clamp(49px, 14vw, 75px);
-      }
-
-      .hero-copy {
-        font-size: 15px;
-      }
-
-      .preview-frame {
-        padding: 6px;
-      }
-
-      .preview-frame img,
-      .preview-placeholder {
-        height: 300px;
-      }
-
-      .floating-note {
-        left: -5px;
-        bottom: 7%;
-        padding: 12px;
-      }
-
-      .sticker {
-        right: -7px;
-        width: 68px;
-        height: 68px;
-        font-size: 9px;
-      }
-
-      .hero-foot {
-        left: 20px;
-        right: 20px;
-        font-size: 9px;
-      }
-
-      .section {
-        padding: 70px 20px;
-      }
-
-      .project-grid,
-      .process-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .project-image {
-        height: 240px;
-      }
-
-      .process-card h3 {
-        margin-top: 18px;
-      }
-
-      .contact {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .footer {
-        flex-direction: column;
-        padding: 22px 20px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f5f2e9">
+<title>Shreya Soni | Shopify Developer</title>
+<meta name="description" content="Shopify developer specializing in Figma-to-Shopify development, custom Liquid sections, responsive storefronts, and backend integrations.">
+
+<script>
+document.documentElement.classList.add("js");
+</script>
+
+<style>
+:root {
+  --cream: #f5f2e9;
+  --green: #234d3a;
+  --dark: #182d25;
+  --lime: #d6f078;
+  --muted: #69766c;
+  --line: rgba(24,45,37,.14);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 85px; }
+body {
+  background: var(--cream);
+  color: var(--dark);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+.progress {
+  position: fixed; top: 0; left: 0; z-index: 999;
+  height: 3px; width: 0; background: var(--lime);
+}
+
+/* NAVIGATION */
+
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 7%;
+  background: rgba(245,242,233,.9);
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--line);
+}
+.brand { font-size: 17px; font-weight: 900; letter-spacing: -1px; }
+.brand span { color: #78964b; }
+.nav-links { display: flex; gap: 27px; font-size: 13px; }
+.nav-links a { transition: color .25s; }
+.nav-links a:hover { color: #78964b; }
+
+/* HERO */
+
+.hero {
+  min-height: 750px;
+  min-height: min(820px, calc(100vh - 60px));
+  position: relative; isolation: isolate; overflow: hidden;
+  display: grid; grid-template-columns: 1.05fr .95fr;
+  align-items: center; gap: 5%;
+  padding: 80px 7% 100px;
+}
+.hero::before {
+  content: ""; position: absolute; z-index: -1;
+  width: 650px; height: 650px; top: -220px; right: -170px;
+  border-radius: 50%;
+  background: radial-gradient(circle,#d8e6b7,transparent 70%);
+  animation: glow 9s ease-in-out infinite alternate;
+}
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  border: 1px solid var(--line); border-radius: 50px;
+  padding: 10px 15px; font-size: 11px; font-weight: 700;
+  letter-spacing: 1.3px; text-transform: uppercase;
+  animation: fadeUp .8s .05s both;
+}
+.dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #86a644; box-shadow: 0 0 0 4px #86a64425;
+}
+.hero h1 {
+  margin: 28px 0 24px;
+  font-size: clamp(50px,7vw,96px);
+  line-height: .96; letter-spacing: -.075em;
+  animation: fadeUp .9s .15s both;
+}
+.hero h1 em {
+  color: #668449; font-family: Georgia,serif;
+  font-weight: 400; letter-spacing: -.08em;
+}
+.hero-copy {
+  max-width: 490px; color: #53645a;
+  font-size: 17px; line-height: 1.8;
+  animation: fadeUp .9s .3s both;
+}
+.actions {
+  display: flex; flex-wrap: wrap; gap: 13px;
+  margin-top: 32px; animation: fadeUp .9s .4s both;
+}
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 10px; padding: 15px 21px; border-radius: 50px;
+  font-size: 13px; font-weight: 700;
+  transition: transform .3s, background .3s, box-shadow .3s;
+}
+.btn:hover { transform: translateY(-4px); }
+.btn-dark { background: var(--green); color: white; }
+.btn-dark:hover { background: #142f23; box-shadow: 0 12px 26px #234d3a30; }
+.btn-light { border: 1px solid var(--line); }
+
+.hero-visual { position: relative; perspective: 1200px; animation: visualEnter 1.2s .2s both; }
+.hero-orbit {
+  position: absolute; inset: 5% -4% -4% 4%;
+  border: 1px solid #8ba36b70;
+  border-radius: 48% 52% 44% 56%;
+  animation: orbit 15s ease-in-out infinite alternate;
+}
+.hero-frame {
+  position: relative; z-index: 1; padding: 9px;
+  background: white; border-radius: 17px;
+  box-shadow: 0 32px 90px #1a34252b;
+  transform: rotate(2deg);
+  animation: float 6s ease-in-out infinite;
+}
+.hero-frame img {
+  width: 100%; height: 390px;
+  object-fit: cover; object-position: top;
+  border-radius: 10px;
+}
+.hero-fallback {
+  height: 390px; display: grid; place-items: center;
+  text-align: center; padding: 25px;
+  background: linear-gradient(145deg,#f4d6e2,#e3edca,#d9e8df);
+  border-radius: 10px; color: var(--green);
+}
+.hero-fallback strong { font: 48px/1 Georgia,serif; }
+.floating-note {
+  position: absolute; z-index: 3; left: -25px; bottom: 12%;
+  padding: 15px 18px; background: white; border-radius: 12px;
+  box-shadow: 0 14px 38px #1a34251c;
+  animation: noteFloat 5s ease-in-out infinite;
+}
+.floating-note small {
+  display: block; margin-bottom: 5px; color: var(--muted);
+  font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+}
+.floating-note strong { font-size: 13px; }
+.sticker {
+  position: absolute; z-index: 3; top: -23px; right: -18px;
+  width: 78px; height: 78px; display: grid; place-items: center;
+  border-radius: 50%; background: var(--lime);
+  font-size: 10px; line-height: 1.3; font-weight: 900;
+  text-align: center; text-transform: uppercase;
+  animation: spinSlow 22s linear infinite;
+}
+.hero-foot {
+  position: absolute; bottom: 23px; left: 7%; right: 7%;
+  display: flex; justify-content: space-between; gap: 15px;
+  color: #718075; font-size: 10px; letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* SHARED SECTIONS */
+
+.section { padding: 100px 7%; }
+.kicker {
+  color: #6c854a; font-size: 11px;
+  font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+}
+.section h2 {
+  margin-top: 14px; max-width: 760px;
+  font-size: clamp(37px,5vw,65px);
+  line-height: 1; letter-spacing: -.065em;
+}
+.section-intro {
+  max-width: 440px; margin-top: 17px;
+  color: var(--muted); font-size: 14px; line-height: 1.8;
+}
+.section-head {
+  display: flex; justify-content: space-between;
+  align-items: end; gap: 30px; margin-bottom: 42px;
+}
+
+/* FEATURED AUTO-SCROLL SHOWCASE */
+
+.featured { overflow: hidden; padding-left: 0; padding-right: 0; }
+.featured-heading { padding: 0 7%; margin-bottom: 40px; }
+.featured-heading .section-intro { max-width: 600px; }
+
+.marquee {
+  width: 100%; overflow: hidden;
+  padding: 10px 0 35px;
+  mask-image: linear-gradient(to right,transparent,black 5%,black 95%,transparent);
+  -webkit-mask-image: linear-gradient(to right,transparent,black 5%,black 95%,transparent);
+}
+.marquee-track {
+  display: flex; width: max-content; gap: 22px;
+  animation: marqueeScroll 48s linear infinite;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+.feature-card {
+  width: min(66vw, 720px); flex-shrink: 0;
+  overflow: hidden; border-radius: 18px;
+  background: white; border: 1px solid var(--line);
+  box-shadow: 0 18px 45px #203c2a12;
+  transition: transform .4s, box-shadow .4s;
+}
+.feature-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 28px 60px #203c2a20;
+}
+.feature-image {
+  height: 360px; overflow: hidden; background: #e5e8df;
+}
+.feature-image img {
+  width: 100%; height: 100%; object-fit: cover;
+  object-position: top;
+  transition: transform .8s cubic-bezier(.2,.7,.2,1);
+}
+.feature-card:hover .feature-image img { transform: scale(1.035); }
+.feature-info {
+  display: flex; justify-content: space-between;
+  align-items: center; gap: 18px; padding: 23px 25px;
+}
+.feature-info h3 { font-size: 24px; letter-spacing: -1px; }
+.feature-info p { margin-top: 7px; color: var(--muted); font-size: 13px; }
+.feature-number { color: #7c9558; font-size: 12px; letter-spacing: 1px; }
+.feature-arrow {
+  flex-shrink: 0; display: grid; place-items: center;
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--green); color: white;
+  transition: transform .3s;
+}
+.feature-card:hover .feature-arrow { transform: rotate(45deg); }
+.showcase-caption {
+  padding: 0 7%; display: flex; justify-content: space-between;
+  gap: 15px; color: var(--muted); font-size: 11px;
+  letter-spacing: 1px; text-transform: uppercase;
+}
+
+/* OTHER PROJECTS */
+
+.other-projects {
+  background: #eaece2; border-top: 1px solid #e1e5d9;
+  border-bottom: 1px solid #e1e5d9;
+}
+.other-grid {
+  display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px;
+}
+.other-card {
+  min-width: 0; border: 1px solid #dfe3d7; border-radius: 16px;
+  padding: 25px; background: #f8f7f1;
+  transition: transform .35s, box-shadow .35s;
+}
+.other-card:hover { transform: translateY(-7px); box-shadow: 0 20px 40px #243d2912; }
+.other-art {
+  height: 155px; margin-bottom: 23px; border-radius: 11px;
+  display: grid; place-items: center; text-align: center;
+  padding: 20px; color: #244a38;
+  font: 34px/1.1 Georgia,serif;
+  background: linear-gradient(140deg,#e3ead7,#d5e2dd,#f0dfd3);
+}
+.other-card h3 { font-size: 21px; letter-spacing: -.6px; }
+.other-card p { margin: 10px 0 20px; color: var(--muted); font-size: 13px; line-height: 1.7; }
+.other-link { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800; }
+.other-link span { transition: transform .25s; }
+.other-link:hover span { transform: translate(3px,-3px); }
+
+/* FRONTEND / BACKEND */
+
+.skills-section { position: relative; overflow: hidden; }
+.skills-section::before {
+  content: ""; position: absolute; z-index: -1;
+  width: 420px; height: 420px; right: -240px; top: 100px;
+  border-radius: 50%; background: radial-gradient(circle,#d8e6b7,transparent 70%);
+}
+.skills-intro { max-width: 690px; }
+.skills-grid {
+  display: grid; grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 22px; margin-top: 45px;
+}
+.skill-panel {
+  position: relative; overflow: hidden;
+  padding: 32px; border: 1px solid var(--line);
+  border-radius: 18px; background: rgba(255,255,255,.4);
+  transition: transform .35s, box-shadow .35s;
+}
+.skill-panel:hover { transform: translateY(-5px); box-shadow: 0 22px 50px #203c2a12; }
+.skill-panel.backend { color: #f5f2e9; background: var(--green); border-color: var(--green); }
+.skill-icon {
+  display: grid; place-items: center; width: 52px; height: 52px;
+  border-radius: 15px; margin-bottom: 23px;
+  color: var(--green); background: var(--lime);
+  font-size: 22px; font-weight: 900;
+}
+.skill-panel h3 { font-size: 29px; letter-spacing: -1px; }
+.skill-panel > p { margin-top: 12px; color: var(--muted); font-size: 14px; line-height: 1.8; }
+.skill-panel.backend > p { color: #c2cec5; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 24px; }
+.skill-tag {
+  padding: 10px 12px; border: 1px solid var(--line);
+  border-radius: 50px; font-size: 12px;
+}
+.backend .skill-tag { border-color: #ffffff35; }
+.skill-status {
+  display: inline-block; margin-top: 25px; padding: 8px 11px;
+  border-radius: 50px; background: #e0e8cf; color: var(--green);
+  font-size: 10px; font-weight: 800; letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.backend .skill-status { background: #ffffff17; color: var(--lime); }
+.learning-note {
+  margin-top: 25px; padding: 22px 25px; border-radius: 14px;
+  border: 1px solid var(--line); color: var(--muted);
+  font-size: 13px; line-height: 1.8;
+}
+.learning-note strong { color: var(--dark); }
+
+/* APPROACH */
+
+.process { color: var(--cream); background: var(--green); }
+.process .kicker { color: var(--lime); }
+.process .section-intro { color: #c2cec5; }
+.process-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; margin-top: 42px; }
+.process-card { padding: 25px 0; border-top: 1px solid #ffffff40; }
+.process-card .num { color: var(--lime); font-size: 12px; letter-spacing: 1px; }
+.process-card h3 { margin: 27px 0 12px; font-size: 22px; }
+.process-card p { color: #c2cec5; font-size: 14px; line-height: 1.8; }
+
+/* CONTACT */
+
+.contact {
+  display: flex; justify-content: space-between; align-items: end; gap: 30px;
+}
+.contact h2 { max-width: 650px; }
+.footer {
+  display: flex; justify-content: space-between; gap: 20px;
+  padding: 24px 7%; border-top: 1px solid var(--line);
+  color: #718075; font-size: 12px;
+}
+
+/* SCROLL REVEAL */
+
+.reveal { opacity: 1; transform: translateY(0); }
+html.js .reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .75s ease, transform .75s cubic-bezier(.2,.8,.2,1);
+}
+html.js .reveal.visible { opacity: 1; transform: translateY(0); }
+.delay-1 { transition-delay: .12s !important; }
+.delay-2 { transition-delay: .24s !important; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes visualEnter {
+  from { opacity: 0; transform: translateY(35px) rotateY(-8deg) scale(.96); }
+  to { opacity: 1; transform: translateY(0) rotateY(0) scale(1); }
+}
+@keyframes float {
+  0%,100% { transform: rotate(2deg) translateY(0); }
+  50% { transform: rotate(1deg) translateY(-10px); }
+}
+@keyframes noteFloat {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes orbit {
+  from { transform: rotate(-9deg) scale(1); }
+  to { transform: rotate(4deg) scale(1.04); }
+}
+@keyframes glow {
+  from { transform: translate(0,0) scale(1); }
+  to { transform: translate(-40px,25px) scale(1.12); }
+}
+@keyframes spinSlow { to { rotate: 372deg; } }
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px) {
+  .hero { grid-template-columns: 1fr; gap: 55px; padding-top: 65px; }
+  .hero-visual { width: min(100%,620px); margin: auto; }
+  .section-head { display: block; }
+  .other-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .skills-grid { grid-template-columns: 1fr; }
+}
+@media(max-width:600px) {
+  .nav { padding: 17px 20px; }
+  .nav-links { gap: 14px; font-size: 11px; }
+  .nav-links a:nth-child(2) { display: none; }
+  .hero { padding: 55px 20px 100px; gap: 45px; }
+  .hero h1 { font-size: clamp(49px,14vw,75px); }
+  .hero-copy { font-size: 15px; }
+  .hero-frame img,.hero-fallback { height: 280px; }
+  .floating-note { left: -5px; bottom: 7%; padding: 12px; }
+  .sticker { right: -7px; width: 66px; height: 66px; font-size: 9px; }
+  .hero-foot { left: 20px; right: 20px; font-size: 9px; }
+  .section { padding: 70px 20px; }
+  .featured { padding-left: 0; padding-right: 0; }
+  .featured-heading,.showcase-caption { padding-left: 20px; padding-right: 20px; }
+  .feature-card { width: 86vw; }
+  .feature-image { height: 245px; }
+  .feature-info { padding: 17px; }
+  .feature-info h3 { font-size: 20px; }
+  .feature-info p { font-size: 12px; }
+  .other-grid,.process-grid { grid-template-columns: 1fr; }
+  .other-art { height: 135px; }
+  .skill-panel { padding: 24px; }
+  .skill-panel h3 { font-size: 25px; }
+  .contact { align-items: flex-start; flex-direction: column; }
+  .footer { flex-direction: column; padding: 22px 20px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
 </head>
 
 <body>
-  <div class="progress" id="progress"></div>
+<div class="progress" id="progress"></div>
 
-  <nav class="nav">
-    <a class="brand" href="#top">SHREYA SONI<span> ●</span></a>
-    <div class="nav-links">
-      <a href="#work">Selected work</a>
-      <a href="#approach">Approach</a>
-      <a href="#contact">Contact ↗</a>
+<nav class="nav">
+  <a class="brand" href="#top">SHREYA SONI<span> ●</span></a>
+  <div class="nav-links">
+    <a href="#work">My work</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact ↗</a>
+  </div>
+</nav>
+
+<main id="top">
+
+  <!-- HERO BANNER -->
+  <section class="hero">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> Shopify Developer · Frontend Focused</div>
+      <h1>Thoughtful design.<br><em>Built for</em> Shopify.</h1>
+      <p class="hero-copy">
+        I transform design references into responsive Shopify storefronts —
+        creating custom Liquid sections, polished product pages, and
+        thoughtful ecommerce experiences.
+      </p>
+      <div class="actions">
+        <a class="btn btn-dark" href="#work">Explore my work ↗</a>
+        <a class="btn btn-light" href="#contact">Let’s connect</a>
+      </div>
     </div>
-  </nav>
 
-  <main id="top">
-    <section class="hero">
-      <div class="hero-content">
-        <div class="eyebrow">
-          <span class="dot"></span>
-          Shopify Developer · Frontend Focused
+    <div class="hero-visual">
+      <div class="hero-orbit"></div>
+      <div class="hero-frame">
+        <img
+          src="images/erthwellness.png"
+          alt="Erth Wellness storefront design"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='grid';"
+        >
+        <div class="hero-fallback" style="display:none">
+          <strong>Design<br>meets<br>Shopify.</strong>
         </div>
+      </div>
+      <div class="floating-note">
+        <small>My specialty</small>
+        <strong>Figma → Responsive Storefront</strong>
+      </div>
+      <div class="sticker">Design<br>meets<br>function</div>
+    </div>
 
-        <h1>
-          Thoughtful design.<br>
-          <em>Built for</em> Shopify.
-        </h1>
+    <div class="hero-foot">
+      <span>Custom storefronts · Responsive UI</span>
+      <span>Scroll to explore ↓</span>
+    </div>
+  </section>
 
-        <p class="hero-copy">
-          I turn design ideas into responsive, merchant-friendly Shopify
-          storefronts — from custom Liquid sections to polished product
-          pages and smooth shopping experiences.
+  <!-- THREE FEATURED WEBSITES: AUTO-SCROLL -->
+  <section class="featured section" id="work">
+    <div class="featured-heading reveal">
+      <div class="kicker">Featured projects · 01—03</div>
+      <h2>My work, in motion.</h2>
+      <p class="section-intro">
+        Explore three featured ecommerce storefronts. Hover over the showcase
+        to pause the animation, or open a live website to explore it.
+      </p>
+    </div>
+
+    <div class="marquee">
+      <div class="marquee-track">
+
+        <!-- FIRST SET -->
+        <article class="feature-card">
+          <a href="https://erthwellness.com/" target="_blank" rel="noreferrer">
+            <div class="feature-image">
+              <img src="images/erthwellness.png" alt="Erth Wellness website screenshot"
+                onerror="this.outerHTML='<div class=&quot;no-image&quot;>Erth Wellness</div>'">
+            </div>
+            <div class="feature-info">
+              <div>
+                <span class="feature-number">FEATURED / 01</span>
+                <h3>Erth Wellness</h3>
+                <p>Wellness ecommerce · Storefront UI</p>
+              </div>
+              <span class="feature-arrow">↗</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="feature-card">
+          <a href="https://harvest-twin.store/" target="_blank" rel="noreferrer">
+            <div class="feature-image">
+              <img src="images/harvest-twin.png" alt="Harvest Twin website screenshot"
+                onerror="this.outerHTML='<div class=&quot;no-image&quot;>Harvest Twin</div>'">
+            </div>
+            <div class="feature-info">
+              <div>
+                <span class="feature-number">FEATURED / 02</span>
+                <h3>Harvest Twin</h3>
+                <p>Supplement storefront · Responsive UI</p>
+              </div>
+              <span class="feature-arrow">↗</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="feature-card">
+          <a href="https://vsterlingjewels.com/" target="_blank" rel="noreferrer">
+            <div class="feature-image">
+              <img src="images/vsterlingjewels.png" alt="V Sterling Jewels website screenshot"
+                onerror="this.outerHTML='<div class=&quot;no-image&quot;>V Sterling Jewels</div>'">
+            </div>
+            <div class="feature-info">
+              <div>
+                <span class="feature-number">FEATURED / 03</span>
+                <h3>V Sterling Jewels</h3>
+                <p>Jewelry ecommerce · Store development</p>
+              </div>
+              <span class="feature-arrow">↗</span>
+            </div>
+          </a>
+        </article>
+
+        <!-- DUPLICATED SET FOR A CONTINUOUS LOOP -->
+        <article class="feature-card" aria-hidden="true">
+          <a href="https://erthwellness.com/" tabindex="-1">
+            <div class="feature-image">
+              <img src="images/erthwellness.png" alt="">
+            </div>
+            <div class="feature-info">
+              <div>
+                <span class="feature-number">FEATURED / 01</span>
+                <h3>Erth Wellness</h3>
+                <p>Wellness ecommerce · Storefront UI</p>
+              </div>
+              <span class="feature-arrow">↗</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="feature-card" aria-hidden="true">
+          <a href="https://harvest-twin.store/" tabindex="-1">
+            <div class="feature-image">
+              <img src="images/harvest-twin.png" alt="">
+            </div>
+            <div class="feature-info">
+              <div>
+                <span class="feature-number">FEATURED / 02</span>
+                <h3>Harvest Twin</h3>
+                <p>Supplement storefront · Responsive UI</p>
+              </div>
+              <span class="feature-arrow">↗</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="feature-card" aria-hidden="true">
+          <a href="https://vsterlingjewels.com/" tabindex="-1">
+            <div class="feature-image">
+              <img src="images/vsterlingjewels.png" alt="">
+            </div>
+            <div class="feature-info">
+              <div>
+                <span class="feature-number">FEATURED / 03</span>
+                <h3>V Sterling Jewels</h3>
+                <p>Jewelry ecommerce · Store development</p>
+              </div>
+              <span class="feature-arrow">↗</span>
+            </div>
+          </a>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="showcase-caption">
+      <span>Selected storefronts</span>
+      <span>Hover to pause · Click to visit ↗</span>
+    </div>
+  </section>
+
+  <!-- OTHER WEBSITES -->
+  <section class="section other-projects">
+    <div class="section-head reveal">
+      <div>
+        <div class="kicker">More projects · 04—08</div>
+        <h2>More stores. More experiences.</h2>
+      </div>
+      <p class="section-intro">
+        Additional ecommerce websites across different niches and product
+        categories.
+      </p>
+    </div>
+
+    <div class="other-grid">
+
+      <article class="other-card reveal">
+        <div class="other-art">Fantozzi<br>Honey Co.</div>
+        <h3>Fantozzi Honey Co.</h3>
+        <p>Product-focused ecommerce experience.</p>
+        <a class="other-link" href="https://fantozzihoneyco.com/" target="_blank" rel="noreferrer">
+          Visit website <span>↗</span>
+        </a>
+      </article>
+
+      <article class="other-card reveal delay-1">
+        <div class="other-art">RAAN</div>
+        <h3>RAAN</h3>
+        <p>Fashion storefront and customer-facing UI.</p>
+        <a class="other-link" href="https://raan.com/" target="_blank" rel="noreferrer">
+          Visit website <span>↗</span>
+        </a>
+      </article>
+
+      <article class="other-card reveal delay-2">
+        <div class="other-art">TAKEOFF<br>LUGGAGE</div>
+        <h3>Takeoff Luggage</h3>
+        <p>Travel products and ecommerce storefront.</p>
+        <a class="other-link" href="https://takeoffluggage.com/" target="_blank" rel="noreferrer">
+          Visit website <span>↗</span>
+        </a>
+      </article>
+
+      <article class="other-card reveal">
+        <div class="other-art">METAL<br>MOTION</div>
+        <h3>Metal Motion</h3>
+        <p>Product presentation and storefront customization.</p>
+        <a class="other-link" href="https://metalmotion.shop/" target="_blank" rel="noreferrer">
+          Visit website <span>↗</span>
+        </a>
+      </article>
+
+      <article class="other-card reveal delay-1">
+        <div class="other-art">HAPPY<br>AGING</div>
+        <h3>Happy Aging</h3>
+        <p>Wellness-oriented ecommerce storefront.</p>
+        <a class="other-link" href="https://happyaging.com/" target="_blank" rel="noreferrer">
+          Visit website <span>↗</span>
+        </a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- FRONTEND AND BACKEND SKILLS -->
+  <section class="section skills-section" id="skills">
+    <div class="skills-intro reveal">
+      <div class="kicker">My technical journey</div>
+      <h2>Strong on the frontend. Growing into the backend.</h2>
+      <p class="section-intro">
+        I build responsive Shopify storefront experiences and am expanding
+        my backend knowledge to understand how stores connect with APIs,
+        external services, and automated workflows.
+      </p>
+    </div>
+
+    <div class="skills-grid">
+
+      <article class="skill-panel reveal">
+        <div class="skill-icon">UI</div>
+        <div class="kicker">Core strengths</div>
+        <h3>Frontend Development</h3>
+        <p>
+          Turning Figma designs into responsive Shopify sections, improving
+          storefront usability, and creating flexible components merchants
+          can manage in the theme editor.
         </p>
 
-        <div class="hero-actions">
-          <a class="btn btn-dark" href="#work">Explore my work ↗</a>
-          <a class="btn btn-light" href="#contact">Let’s connect</a>
-        </div>
-      </div>
-
-      <div class="hero-visual">
-        <div class="orbit"></div>
-
-        <div class="preview-frame">
-          <!-- Add your screenshot at images/erthwellness.png -->
-          <img
-            src="images/erthwellness.png"
-            alt="Erth Wellness Shopify storefront preview"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='grid';"
-          >
-          <div class="preview-placeholder" style="display:none">
-            <strong>Wellness<br>with a point<br>of view.</strong>
-          </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Shopify Liquid</span>
+          <span class="skill-tag">HTML5</span>
+          <span class="skill-tag">CSS3</span>
+          <span class="skill-tag">Responsive Design</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">Section Schema</span>
+          <span class="skill-tag">Metafields</span>
+          <span class="skill-tag">Metaobjects</span>
+          <span class="skill-tag">AJAX Concepts</span>
+          <span class="skill-tag">Git & GitHub</span>
         </div>
 
-        <div class="floating-note">
-          <small>My focus</small>
-          <strong>Figma → Responsive Storefront</strong>
-        </div>
+        <span class="skill-status">Frontend focus</span>
+      </article>
 
-        <div class="sticker">Design<br>meets<br>function</div>
-      </div>
-
-      <div class="hero-foot">
-        <span>Custom storefronts · Responsive UI</span>
-        <span class="scroll-cue">Scroll to explore <span></span></span>
-      </div>
-    </section>
-
-    <section class="section projects" id="work">
-      <div class="section-head reveal">
-        <div>
-          <div class="kicker">Selected Work / 01—06</div>
-          <h2>Storefronts with purpose.</h2>
-        </div>
-        <p class="section-intro">
-          Ecommerce projects across different product niches, with a focus
-          on frontend implementation, responsive layouts, and storefront UI.
+      <article class="skill-panel backend reveal delay-1">
+        <div class="skill-icon">API</div>
+        <div class="kicker">Expanding my expertise</div>
+        <h3>Shopify Backend Development</h3>
+        <p>
+          Learning to build integration services that connect Shopify with
+          external platforms, process store events, and automate operational
+          workflows.
         </p>
-      </div>
 
-      <div class="project-grid">
-        <article class="project reveal">
-          <div class="project-image">
-            <img src="images/erthwellness.png" alt="Erth Wellness homepage screenshot"
-              onerror="this.outerHTML='<div class=&quot;no-image&quot;>Erth Wellness</div>'">
-          </div>
-          <div class="project-meta">
-            <div>
-              <h3>Erth Wellness</h3>
-              <p>Wellness storefront · UI implementation</p>
-            </div>
-            <a class="project-link" href="https://erthwellness.com/" target="_blank" rel="noreferrer" aria-label="Open Erth Wellness">↗</a>
-          </div>
-        </article>
-
-        <article class="project reveal delay-1">
-          <div class="project-image">
-            <img src="images/harvest-twin.png" alt="Harvest Twin homepage screenshot"
-              onerror="this.outerHTML='<div class=&quot;no-image&quot;>Harvest Twin</div>'">
-          </div>
-          <div class="project-meta">
-            <div>
-              <h3>Harvest Twin</h3>
-              <p>Supplement storefront · Responsive UI</p>
-            </div>
-            <a class="project-link" href="https://www.google.com/search?q=Harvest+Twin+Shopify+store" target="_blank" rel="noreferrer" aria-label="Find Harvest Twin">↗</a>
-          </div>
-        </article>
-
-        <article class="project reveal">
-          <div class="project-image"><div class="no-image">V Sterling<br>Jewels</div></div>
-          <div class="project-meta">
-            <div>
-              <h3>V Sterling Jewels</h3>
-              <p>Jewelry ecommerce · Store development and integrations</p>
-            </div>
-            <a class="project-link" href="https://vsterlingjewels.com/" target="_blank" rel="noreferrer" aria-label="Open V Sterling Jewels">↗</a>
-          </div>
-        </article>
-
-        <article class="project reveal delay-1">
-          <div class="project-image"><div class="no-image">Fantozzi<br>Honey Co.</div></div>
-          <div class="project-meta">
-            <div>
-              <h3>Fantozzi Honey Co.</h3>
-              <p>Product-focused storefront UI</p>
-            </div>
-            <a class="project-link" href="https://fantozzihoneyco.com/" target="_blank" rel="noreferrer" aria-label="Open Fantozzi Honey Co.">↗</a>
-          </div>
-        </article>
-
-        <article class="project reveal">
-          <div class="project-image"><div class="no-image">RAAN</div></div>
-          <div class="project-meta">
-            <div>
-              <h3>RAAN</h3>
-              <p>Fashion storefront customization</p>
-            </div>
-            <a class="project-link" href="https://raan.com/" target="_blank" rel="noreferrer" aria-label="Open RAAN">↗</a>
-          </div>
-        </article>
-
-        <article class="project reveal delay-1">
-          <div class="project-image"><div class="no-image">the padlr shop</div></div>
-          <div class="project-meta">
-            <div>
-              <h3>The Padlr Shop</h3>
-              <p>Sports ecommerce storefront</p>
-            </div>
-            <a class="project-link" href="https://thepadlr.shop/" target="_blank" rel="noreferrer" aria-label="Open The Padlr Shop">↗</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section skills">
-      <div class="reveal">
-        <div class="kicker">What I work with</div>
-        <h2>Design detail, backed by code.</h2>
-        <p class="section-intro">
-          My strongest area is frontend Shopify development: translating
-          Figma references into clean, responsive sections and storefronts.
-        </p>
-      </div>
-
-      <div class="skill-list reveal delay-1">
-        <span class="skill">Shopify Liquid</span>
-        <span class="skill">HTML & CSS</span>
-        <span class="skill">Responsive UI</span>
-        <span class="skill">JavaScript</span>
-        <span class="skill">Section Schema</span>
-        <span class="skill">Metafields & Metaobjects</span>
-        <span class="skill">AJAX Cart Concepts</span>
-        <span class="skill">Git & GitHub</span>
-        <span class="skill">Node.js / Express</span>
-        <span class="skill">REST APIs & Webhooks</span>
-      </div>
-    </section>
-
-    <section class="section process" id="approach">
-      <div class="section-head reveal">
-        <div>
-          <div class="kicker">How I approach a build</div>
-          <h2>From reference to real storefront.</h2>
-        </div>
-        <p class="section-intro">
-          I focus on the details that make a design work in a real Shopify
-          theme — for customers and for the merchant managing it.
-        </p>
-      </div>
-
-      <div class="process-grid">
-        <div class="process-card reveal">
-          <span class="num">01 / UNDERSTAND</span>
-          <h3>Review the design</h3>
-          <p>
-            Identify shared patterns, responsive behavior, and where a
-            native theme section works versus where a custom section is needed.
-          </p>
+        <div class="skill-tags">
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">Express.js</span>
+          <span class="skill-tag">REST APIs</span>
+          <span class="skill-tag">GraphQL</span>
+          <span class="skill-tag">Shopify Admin API</span>
+          <span class="skill-tag">Webhooks</span>
+          <span class="skill-tag">Axios</span>
+          <span class="skill-tag">Environment Variables</span>
+          <span class="skill-tag">API Authentication</span>
+          <span class="skill-tag">Database Fundamentals</span>
         </div>
 
-        <div class="process-card reveal delay-1">
-          <span class="num">02 / BUILD</span>
-          <h3>Make it configurable</h3>
-          <p>
-            Build with Liquid, HTML, CSS, and JavaScript, using section
-            schema and settings so content can be managed in the theme editor.
-          </p>
-        </div>
+        <span class="skill-status">Currently learning & building</span>
+      </article>
 
-        <div class="process-card reveal delay-2">
-          <span class="num">03 / REFINE</span>
-          <h3>Test across screens</h3>
-          <p>
-            Check desktop and mobile layouts, interactions, and visual
-            details; debug in browser DevTools and refine the experience.
-          </p>
-        </div>
-      </div>
-    </section>
+    </div>
 
-    <section class="section contact" id="contact">
-      <div class="reveal">
-        <div class="kicker">Have a project in mind?</div>
-        <h2>Let’s build something useful.</h2>
-        <p class="section-intro">
-          Open to Shopify frontend and storefront development opportunities.
-        </p>
-      </div>
-
-      <!-- Replace YOUR_EMAIL@example.com with your real email -->
-      <a class="btn btn-dark reveal delay-1" href="mailto:YOUR_EMAIL@example.com">
-        Email me ↗
+    <div class="learning-note reveal">
+      <strong>Practical learning project:</strong>
+      Developing a Node.js and Express integration server to receive Shopify
+      webhooks, process order information, and explore connections to external
+      services such as shipping and fulfilment APIs.
+      <br>
+      <a class="other-link" href="https://github.com/shreyasoni-create/shopify-backend"
+         target="_blank" rel="noreferrer" style="margin-top:12px">
+        Explore my backend learning project <span>↗</span>
       </a>
-    </section>
-  </main>
+    </div>
+  </section>
 
-  <footer class="footer">
-    <span>© 2026 Shreya Soni</span>
-    <span>Shopify Development · Built with care</span>
-    <a href="https://github.com/shreyasoni-create/shopify-backend" target="_blank" rel="noreferrer">GitHub ↗</a>
-  </footer>
+  <!-- APPROACH -->
+  <section class="section process" id="approach">
+    <div class="section-head reveal">
+      <div>
+        <div class="kicker">My approach</div>
+        <h2>From design reference to working storefront.</h2>
+      </div>
+      <p class="section-intro">
+        A practical workflow focused on responsive design, maintainable
+        components, and real Shopify functionality.
+      </p>
+    </div>
 
-  <script>
-    // Scroll progress indicator
-    const progress = document.getElementById("progress");
+    <div class="process-grid">
+      <div class="process-card reveal">
+        <span class="num">01 / PLAN</span>
+        <h3>Understand the design</h3>
+        <p>Review Figma references, identify reusable patterns, and decide where custom Shopify sections are needed.</p>
+      </div>
+      <div class="process-card reveal delay-1">
+        <span class="num">02 / BUILD</span>
+        <h3>Develop & configure</h3>
+        <p>Build with Liquid, HTML, CSS, and JavaScript, with appropriate section settings and merchant controls.</p>
+      </div>
+      <div class="process-card reveal delay-2">
+        <span class="num">03 / TEST</span>
+        <h3>Refine the experience</h3>
+        <p>Check responsive layouts, troubleshoot using browser DevTools, and refine the customer experience.</p>
+      </div>
+    </div>
+  </section>
 
-    function updateProgress() {
-      const scrollable =
-        document.documentElement.scrollHeight - window.innerHeight;
+  <!-- CONTACT -->
+  <section class="section contact" id="contact">
+    <div class="reveal">
+      <div class="kicker">Let's connect</div>
+      <h2>Have a Shopify project in mind?</h2>
+      <p class="section-intro">
+        Open to Shopify frontend development and opportunities to grow
+        into full-stack Shopify engineering.
+      </p>
+    </div>
+    <!-- Replace with your real professional email -->
+    <a class="btn btn-dark reveal delay-1" href="mailto:YOUR_EMAIL@example.com">
+      Get in touch ↗
+    </a>
+  </section>
 
-      const percentage = scrollable > 0
-        ? (window.scrollY / scrollable) * 100
-        : 0;
+</main>
 
-      progress.style.width = percentage + "%";
-    }
+<footer class="footer">
+  <span>© 2026 Shreya Soni</span>
+  <span>Shopify Development · Built with care</span>
+  <a href="https://github.com/shreyasoni-create/shopify-backend" target="_blank" rel="noreferrer">GitHub ↗</a>
+</footer>
 
-    window.addEventListener("scroll", updateProgress, { passive: true });
-    updateProgress();
+<script>
+  // Top-of-page scroll progress indicator
+  const progress = document.getElementById("progress");
 
-    // Reveal sections as they enter the viewport
-    const revealObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.12,
-        rootMargin: "0px 0px -30px 0px"
+  function updateProgress() {
+    const maxScroll =
+      document.documentElement.scrollHeight - window.innerHeight;
+    const percent = maxScroll > 0
+      ? (window.scrollY / maxScroll) * 100
+      : 0;
+
+    progress.style.width = percent + "%";
+  }
+
+  window.addEventListener("scroll", updateProgress, { passive: true });
+  updateProgress();
+
+  // Reveal content smoothly as it enters the viewport
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
       }
-    );
-
-    document.querySelectorAll(".reveal").forEach((element) => {
-      revealObserver.observe(element);
     });
-  </script>
+  }, {
+    threshold: 0.12,
+    rootMargin: "0px 0px -25px 0px"
+  });
+
+  document.querySelectorAll(".reveal").forEach(element => {
+    revealObserver.observe(element);
+  });
+</script>
+
 </body>
 </html>
